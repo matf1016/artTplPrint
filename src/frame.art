@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <style>
+    .page-break-before {
+      page-break-before: always;
+    }
+    
+    body { 
+      width:100% !important;
+      margin:0 !important;
+      padding:0 !important;
+      line-height: 1.45; 
+      font-family: Garamond,"Times New Roman", serif; 
+      color: #000; 
+      background: none; 
+      font-size: 14pt; 
+    }
+
+    /* Headings */
+    h1{font-size:19pt;}
+    h2{font-size:17pt;}
+    h3{font-size:15pt;}
+    h4,h5,h6{font-size:14pt;}
+
+    table {
+      border-collapse: collapse;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    table td,
+    table th {
+      border: 1px solid black;
+      vertical-align: top;
+      padding: 2px;
+      text-align: left;
+      page-break-inside: avoid;
+    }
+
+    p, h2, h3 { orphans: 3; widows: 3; }
+
+    code { font: 12pt Courier, monospace; } 
+    blockquote { margin: 1.2em; padding: 1em;  font-size: 12pt; }
+    hr { background-color: #ccc; }
+    .btn-container {
+      position: fixed;
+      top: 10px;
+      left: 10px
+    }
+    .btn {
+      display: inline-block;
+      padding: 9px 15px;
+      font-size: 12px;
+      border-radius: 3px;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      background: #FFFFFF;
+      border: 1px solid #CFDADD;
+      color: #666666;
+      box-sizing: border-box;
+    }
+    .btn-primary {
+      color: #FFFFFF;
+      background-color: #22B8E5;
+      border-color: #22B8E5;
+    }
+    .content {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .content-margin {
+      margin-top: 50px;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust:exact;
+        -moz-print-color-adjust:exact;
+        -ms-print-color-adjust:exact;
+      }
+      @page {
+        margin: 0;
+      }
+
+      .no-print {
+        display: none;
+      }
+
+      .content {
+        margin: 0;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="content" class="content"></div>
+  <div id="btn-container" class="btn-container no-print">
+    <button id="btnprint" class="btn btn-primary">打印</button>
+    <button id="btncanel" class="btn">取消</button>
+  </div>
+</body>
+</html>
