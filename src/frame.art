@@ -17,14 +17,14 @@
       font-family: Garamond,"Times New Roman", serif; 
       color: #000; 
       background: none; 
-      font-size: 14pt; 
+      font-size: 14px; 
     }
 
     /* Headings */
-    h1{font-size:19pt;}
-    h2{font-size:17pt;}
-    h3{font-size:15pt;}
-    h4,h5,h6{font-size:14pt;}
+    h1{font-size:19px;}
+    h2{font-size:17px;}
+    h3{font-size:15px;}
+    h4,h5,h6{font-size:14px;}
 
     table {
       border-collapse: collapse;
@@ -42,8 +42,8 @@
 
     p, h2, h3 { orphans: 3; widows: 3; }
 
-    code { font: 12pt Courier, monospace; } 
-    blockquote { margin: 1.2em; padding: 1em;  font-size: 12pt; }
+    code { font: 12px Courier, monospace; } 
+    blockquote { margin: 1.2em; padding: 1em;  font-size: 12px; }
     hr { background-color: #ccc; }
     .btn-container {
       position: fixed;

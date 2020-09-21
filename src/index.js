@@ -63,31 +63,27 @@ function _createIframe() {
   this[_iframe].frameBorder = 0;
   this[_iframe].allowFullscreen = true;
   this[_iframe].style = style;
+  this[_iframe].name = "frame3";
   this[_iframe].setAttribute('data-arttplprintframeid', '');
   if (mode === 'nopreview') {
-    style = 'display:none;z-index:9999;'
+    style = 'z-index:-1;'
     this[_iframe].style = style;
     this[_iframe].onload = () => {
-      console.log('iframe onload nopreview', new Date().getTime());
       let contentDocument = this[_iframe].contentDocument;
       if (contentDocument && contentDocument.getElementById('content')) {
-        console.log('contentWindow.focus', new Date().getTime());
+        this.call('_addPrintEvent');
         this[_iframe].contentWindow.focus();
         this[_iframe].contentWindow.print();
-        setTimeout(() => {
-          this[_iframe].remove();
-        }, 0);
+        this.call('_addPrintEvent');
       }
     };
   }
   else {
     this[_iframe].onload = () => {
-      console.log('iframe onload');
-      console.log('_setPrintFlag:false',new Date().getTime());
       this[_document] && (this[_setPrintFlag] = false);
+      let contentDocument = this[_iframe].contentDocument;
     };
   }
-  console.log('_setPrintFlag:true', new Date().getTime());
   this[_setPrintFlag] = true;
   parentEl.appendChild(this[_iframe]);
   this[_document] = this[_iframe].contentDocument;
@@ -96,9 +92,27 @@ function _createIframe() {
   this[_document].write(this[_frameHtml]);
   this[_document].close();
   this.call('_dealCode', this[_document]);
-  
 }
 
+// 不预览时要添加在系统预览点击打印或者取消时清除iframe的事件
+function _addPrintEvent() {
+  let contentWindow = this[_iframe].contentWindow;
+  if (contentWindow.matchMedia) {
+    let mediaQueryList = contentWindow.matchMedia('print');
+    mediaQueryList.addListener((mql) => {
+      if (!mql.matches) {
+        this[_iframe].remove();
+      }
+    });
+  }
+  else {
+    setTimeout(() => {
+      this[_iframe].remove();
+    }, 1000);
+  }
+}
+
+// 清除打印的iframe
 function _clearIframe() {
   let iframeParent = this.options.iframeParent;
   let parentEl = iframeParent && (iframeParent instanceof Element || iframeParent instanceof HTMLDocument)
@@ -109,6 +123,7 @@ function _clearIframe() {
   }
 }
 
+// 处理页面中的二维码和条形码
 function _dealCode(contentDocument) {
   let qrCanvas = contentDocument.querySelectorAll('canvas[data-qrcodevalue]');
   qrCanvas.forEach((item) => {
@@ -187,7 +202,8 @@ const privateFuns = {
   _addStyles: _addStyles,
   _setPrintFlag: _setPrintFlag,
   _printHandler: _printHandler,
-  _cancelHandler: _cancelHandler
+  _cancelHandler: _cancelHandler,
+  _addPrintEvent: _addPrintEvent
 }
 
 class ArtTplPrint {
